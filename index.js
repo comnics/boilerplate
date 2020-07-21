@@ -6,11 +6,13 @@ const { User } = require('./models/User')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 
+const config = require('./config');
+
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.use(bodyParser.json())
 
-mongoose.connect('mongodb://localhost/test',{ useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log("MongoDB Connected..."))
+mongoose.connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }).then(() => console.log("MongoDB Connected..."))
 .catch(err => console.log(err))
 
 app.get('/', (req, res) => res.send('Hello World!'))
